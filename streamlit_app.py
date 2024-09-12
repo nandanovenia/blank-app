@@ -307,13 +307,15 @@ if (efek=='Saham'):
     contents = response.json()
     sub_folders = [item['name'] for item in contents if item['type'] == 'dir']
 
-    
     #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
     emiten=st.selectbox('Ticker',sub_folders, key='Pilih ticker')
 
 elif (efek=='Obligasi'):
     folder_efek=f"{folder}/Obligasi"
-    sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
+    response = requests.get(folder_efek)
+    contents = response.json()
+    sub_folders = [item['name'] for item in contents if item['type'] == 'dir']
+    #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
     emiten=st.selectbox('Ticker',sub_folders, key='Pilih ticker')
 
 tab1, tab2 = st.tabs(["Data", "Financial Highlights"])
