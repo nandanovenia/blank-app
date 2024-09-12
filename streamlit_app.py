@@ -305,7 +305,7 @@ if (efek=='Saham'):
     # Send a GET request to the GitHub API
     response = requests.get(folder_efek)
     contents = response.json()
-    subfolders = [item['name'] for item in contents if item['type'] == 'dir']
+    sub_folders = [item['name'] for item in contents if item['type'] == 'dir']
 
     
     #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
