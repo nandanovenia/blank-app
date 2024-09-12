@@ -23,6 +23,10 @@ def change_date_format(data):
 def sentence_case(text):
     return text.capitalize()
 
+def url_exists(url):
+    response = requests.head(url)
+    return response.status_code == 200
+    
 def tabel_lengkap_BS(folder_efek,emiten):
     year = ['2020','2021','2022','2023']
     data_account_list = []
