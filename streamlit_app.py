@@ -426,13 +426,12 @@ with tab2:
         y=alt.Y('Value:Q', title='Persentase (%)'),
         color='Rasio Profitabilitas:N'  # Color lines by Metric
     ).properties(width=800,height=300)
-    #st.altair_chart(c)
+    
     text = alt.Chart(df_long).mark_text(align='left', dx=5, dy=-5).encode(
         x=alt.X('index:O'),
         y=alt.Y('Value:Q'),
         text=alt.Text('Value:Q', format=".2f") # Ensure the correct column is used for labels
-    )
-    
+    )    
     chart_with_labels = c + text
     st.altair_chart(chart_with_labels)
 
@@ -447,4 +446,10 @@ with tab2:
         y=alt.Y('Value:Q', title='Persentase (%)'),
         color='Rasio Solvabilitas:N'  # Color lines by Metric
     ).properties(width=800,height=300)
-    st.altair_chart(c)
+    text = alt.Chart(df_long).mark_text(align='left', dx=5, dy=-5).encode(
+        x=alt.X('index:O'),
+        y=alt.Y('Value:Q'),
+        text=alt.Text('Value:Q', format=".2f") # Ensure the correct column is used for labels
+    )    
+    chart_with_labels = c + text
+    st.altair_chart(chart_with_labels)
