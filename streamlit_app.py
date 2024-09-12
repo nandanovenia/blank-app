@@ -50,43 +50,43 @@ def tabel_lengkap_BS(folder_efek,emiten):
         contents = response.text
         soup = BeautifulSoup(contents, 'html.parser')
 
-            # DATE
-            date_headers = soup.find_all('td', class_="colHeader01")
-            if len(date_headers) >= 2:
-                year_current = date_headers[0].text.strip()
-                year_prior = date_headers[1].text.strip()
-            else:
-                continue
+        # DATE
+        date_headers = soup.find_all('td', class_="colHeader01")
+        if len(date_headers) >= 2:
+            year_current = date_headers[0].text.strip()
+            year_prior = date_headers[1].text.strip()
+        else:
+            continue
 
-            def process_accounts():
-                if (year[i] == '2020') or (year[i] == '2021'):
-                    accounts = soup.find_all(
-                        'td',
-                        class_="rowHeaderID01"
-                    )
-                elif year[i] == '2022':
-                    accounts = soup.find_all(
-                        'td',
-                        class_="rowHeaderLeft"
-                    )
-                elif year[i] == '2023':
-                    accounts = soup.find_all(
-                        'td',
-                        class_="rowHeaderLeft"
-                    )
-                
-                for item in accounts:
-                    values_items = item.find_next_siblings(class_="valueCell")
-                    if len(values_items) >= 2:
-                        data_account = {
-                            "Account": item.get_text(strip=True),
-                            year_current: values_items[0].get_text(strip=True),
-                            year_prior: values_items[1].get_text(strip=True)
-                        }
-                        data_account_list.append(data_account)
+        def process_accounts():
+            if (year[i] == '2020') or (year[i] == '2021'):
+                accounts = soup.find_all(
+                    'td',
+                    class_="rowHeaderID01"
+                )
+            elif year[i] == '2022':
+                accounts = soup.find_all(
+                    'td',
+                    class_="rowHeaderLeft"
+                )
+            elif year[i] == '2023':
+                accounts = soup.find_all(
+                    'td',
+                    class_="rowHeaderLeft"
+                )
             
-            # Process different levels of accounts
-            process_accounts()
+            for item in accounts:
+                values_items = item.find_next_siblings(class_="valueCell")
+                if len(values_items) >= 2:
+                    data_account = {
+                        "Account": item.get_text(strip=True),
+                        year_current: values_items[0].get_text(strip=True),
+                        year_prior: values_items[1].get_text(strip=True)
+                    }
+                    data_account_list.append(data_account)
+        
+        # Process different levels of accounts
+        process_accounts()
 
     df_date_formatted=change_date_format(data_account_list)
 
