@@ -408,6 +408,22 @@ with tab2:
     c = alt.Chart(BS_statement.reset_index()).mark_line().encode(x='index',y='Current Ratio').configure_axisX(
         labelAngle=0).properties(width=800,height=300)
     st.altair_chart(c)
+
+    df_long = BS_statement.reset_index().melt('index', var_name='Rasio Likuiditas', value_name='Value')
+    c = alt.Chart(df_long).mark_line().encode(
+        x=alt.X('index:O', title='Tahun', axis=alt.Axis(labelAngle=0)),
+        y=alt.Y('Value:Q', title='Current Ratio (%)'),
+        color='Rasio Profitabilitas:N'  # Color lines by Metric
+    ).properties(width=800,height=300)
+    text = c.mark_text(align='left', dx=5, dy=-5).encode(
+        text='Value:Q'
+    )
+    
+    # Combine the line chart and text labels
+    chart_with_labels = c + text
+    
+    # Display the chart in Streamlit
+    st.altair_chart(chart_with_labels)
     
     st.header("Rasio Profitabilitas")
     LR_statement=LR_statement[['Gross Profit Margin','Net Profit Margin','Return on Asset','Return on Equity']]
@@ -416,8 +432,8 @@ with tab2:
     # Create a multi-line Altair chart
     df_long = LR_statement.reset_index().melt('index', var_name='Rasio Profitabilitas', value_name='Value')
     c = alt.Chart(df_long).mark_line().encode(
-        x=alt.X('index:O', title='Year', axis=alt.Axis(labelAngle=0)),
-        y=alt.Y('Value:Q', title='Percentage'),
+        x=alt.X('index:O', title='Tahun', axis=alt.Axis(labelAngle=0)),
+        y=alt.Y('Value:Q', title='Persentase (%)'),
         color='Rasio Profitabilitas:N'  # Color lines by Metric
     ).properties(width=800,height=300)
     st.altair_chart(c)
@@ -429,8 +445,8 @@ with tab2:
     # Create a multi-line Altair chart
     df_long = BS_statement.reset_index().melt('index', var_name='Rasio Solvabilitas', value_name='Value')
     c = alt.Chart(df_long).mark_line().encode(
-        x=alt.X('index:O', title='Year', axis=alt.Axis(labelAngle=0)),
-        y=alt.Y('Value:Q', title='Percentage'),
+        x=alt.X('index:O', title='Tahun', axis=alt.Axis(labelAngle=0)),
+        y=alt.Y('Value:Q', title='Persentase (%)'),
         color='Rasio Solvabilitas:N'  # Color lines by Metric
     ).properties(width=800,height=300)
     st.altair_chart(c)
