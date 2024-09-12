@@ -10,7 +10,7 @@ import requests
 folder="https://api.github.com/repos/nandanovenia/financial-statement-IDX/contents/IDX_data%20-%20extracted"
 #folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
 #folder = "https://github.com/nandanovenia/financial-statement-IDX/tree/5f258b81cdbecc84a66ab6ccb5b59e6d5ab4b047/IDX_data%20-%20extracted"
-token = "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"
+token = "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"
 headers = {"Authorization": f"token {token}"}
 
 def change_date_format(data):
