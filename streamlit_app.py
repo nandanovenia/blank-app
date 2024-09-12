@@ -305,7 +305,7 @@ efek=st.selectbox('Jenis Efek', ['Saham','Obligasi'],key='Pilih jenis efek')
 #Ticker Selectbox
 if (efek=='Saham'):
     folder_efek=f"{folder}/Saham"
-
+    folder_efek_html="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted/Saham"
     # Send a GET request to the GitHub API
     response = requests.get(folder_efek)
     contents = response.json()
@@ -316,6 +316,7 @@ if (efek=='Saham'):
 
 elif (efek=='Obligasi'):
     folder_efek=f"{folder}/Obligasi"
+    folder_efek_html="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted/Obligasi"
     response = requests.get(folder_efek)
     contents = response.json()
     sub_folders = [item['name'] for item in contents if item['type'] == 'dir']
@@ -331,11 +332,11 @@ with tab1:
     jenis_lapkeu=st.selectbox('Jenis Laporan Keuangan',['Balance Sheet','Laporan Laba/Rugi','Laporan Arus Kas'], key='Pilih jenis Laporan Keuangan')
     # Load data based on selected report type
     if jenis_lapkeu == "Balance Sheet":
-        df = tabel_lengkap_BS(folder_efek, emiten)
+        df = tabel_lengkap_BS(folder_efek_html, emiten)
     elif jenis_lapkeu == 'Laporan Laba/Rugi':
-        df = tabel_lengkap_LR(folder_efek, emiten)
+        df = tabel_lengkap_LR(folder_efek_html, emiten)
     elif jenis_lapkeu == 'Laporan Arus Kas':
-        df = tabel_lengkap_cashflow(folder_efek, emiten)
+        df = tabel_lengkap_cashflow(folder_efek_html, emiten)
 
         #Data Lengkap
     output = io.BytesIO()
