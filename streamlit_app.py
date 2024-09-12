@@ -7,7 +7,8 @@ from xlsxwriter import Workbook
 import altair as alt
 import requests
 
-folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
+folder="https://api.github.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
+#folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
 #folder = "https://github.com/nandanovenia/financial-statement-IDX/tree/5f258b81cdbecc84a66ab6ccb5b59e6d5ab4b047/IDX_data%20-%20extracted"
 
 def change_date_format(data):
