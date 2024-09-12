@@ -6,7 +6,7 @@ import pandas as pd
 from xlsxwriter import Workbook
 import altair as alt
 
-folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/tree/master/IDX_data%20-%20extracted"
+folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
 #folder = "https://github.com/nandanovenia/financial-statement-IDX/tree/5f258b81cdbecc84a66ab6ccb5b59e6d5ab4b047/IDX_data%20-%20extracted"
 
 def change_date_format(data):
@@ -299,7 +299,14 @@ efek=st.selectbox('Jenis Efek', ['Saham','Obligasi'],key='Pilih jenis efek')
 #Ticker Selectbox
 if (efek=='Saham'):
     folder_efek=f"{folder}/Saham"
-    sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
+
+    # Send a GET request to the GitHub API
+    response = requests.get(folder_efek)
+    contents = response.json()
+    subfolders = [item['name'] for item in contents if item['type'] == 'dir']
+
+    
+    #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
     emiten=st.selectbox('Ticker',sub_folders, key='Pilih ticker')
 
 elif (efek=='Obligasi'):
