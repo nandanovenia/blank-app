@@ -42,13 +42,13 @@ def tabel_lengkap_BS(folder_efek,emiten):
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/5220000.html",
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/6220000.html",
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/7220000.html"
-        ] if os.path.exists(path)), None)
+        ] if url_exists(path)), None)
 
         if filename is None:
             continue
-        with open(filename, "r", encoding="utf-8") as HTMLFileToBeOpened:
-            contents = HTMLFileToBeOpened.read()
-            soup = BeautifulSoup(contents, 'html.parser')
+        response = requests.get(filename)
+        contents = response.text
+        soup = BeautifulSoup(contents, 'html.parser')
 
             # DATE
             date_headers = soup.find_all('td', class_="colHeader01")
@@ -140,13 +140,13 @@ def tabel_lengkap_LR(folder_efek,emiten):
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/6322000.html",
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/7322000.html",
             f"{folder_efek}/{emiten}/{emiten}{year[i]}/8322000.html"
-        ] if os.path.exists(path)), None)
+        ] if url_exists(path)), None)
 
         if filename is None:
             continue
-        with open(filename, "r", encoding="utf-8") as HTMLFileToBeOpened:
-            contents = HTMLFileToBeOpened.read()
-            soup = BeautifulSoup(contents, 'html.parser')
+        response = requests.get(filename)
+        contents = response.text
+        soup = BeautifulSoup(contents, 'html.parser')
 
             # DATE
         date_headers = soup.find_all('td', class_="colHeader01")
@@ -345,7 +345,7 @@ with tab1:
     
     #Data Sederhana
     df_sederhana=df.rename_axis('Account').reset_index()
-    df_sederhana=df_sederhana[df_sederhana.Account.str.startswith(('Jumlah', 'Penjualan', 'Beban'))].reset_index(drop=True)
+    df_sederhana=df_sederhana[df_sederhana['Account'].str.startswith(('Jumlah', 'Penjualan', 'Beban'))].reset_index(drop=True)
     df_sederhana = df_sederhana.set_index(['Account'])
 
     output_2 = io.BytesIO()
