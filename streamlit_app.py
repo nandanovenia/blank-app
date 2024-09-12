@@ -333,38 +333,7 @@ with tab1:
     elif jenis_lapkeu == 'Laporan Arus Kas':
         df = tabel_lengkap_cashflow(folder_efek, emiten)
 
-    #Data Lengkap
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer)
-    output.seek(0)
-    
-    #Data Sederhana
-    df_sederhana=df.rename_axis('Account').reset_index()
-    df_sederhana=df_sederhana[df_sederhana.Account.str.startswith(('Jumlah', 'Penjualan', 'Beban'))].reset_index(drop=True)
-    df_sederhana = df_sederhana.set_index(['Account'])
-
-    output_2 = io.BytesIO()
-    with pd.ExcelWriter(output_2, engine='xlsxwriter') as writer:
-        df_sederhana.to_excel(writer)
-    output_2.seek(0)
-
-    #DISPLAY
-    st.subheader('Data Lengkap')
-    st.download_button(label="Download as Excel",
-                data=output,
-                file_name=f'{emiten}_{jenis_lapkeu}_lengkap.xlsx',
-                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    
-    st.dataframe(df, width=1500)
-
-    st.subheader('Data Sederhana')
-    st.download_button(label="Download as Excel",
-                data=output_2,
-                file_name=f'{emiten}_{jenis_lapkeu}_sederhana.xlsx',
-                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    
-    st.dataframe(df_sederhana, width=1500)
+    st.dataframe(df)
 
 with tab2:
 
