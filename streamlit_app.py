@@ -406,18 +406,13 @@ with tab2:
     #st.line_chart(BS_statement['Current Ratio'])
     c = alt.Chart(BS_statement.reset_index()).mark_line().encode(x=alt.X('index', title = "Tahun",axis=alt.Axis(labelAngle=0)),
                                                                  y=alt.Y('Current Ratio:Q', title='Current Ratio (%)')).properties(width=800,height=300)
-    #st.altair_chart(c)
-
     text = alt.Chart(BS_statement.reset_index()).mark_text(align='left', dx=5, dy=-5).encode(
         x=alt.X('index:O'),
         y=alt.Y('Current Ratio:Q'),
-        text=alt.Text('Current Ratio:Q')  # Ensure the correct column is used for labels
+        text=alt.Text('Current Ratio:Q', format=".2f") # Ensure the correct column is used for labels
     )
     
-    # Combine the line chart and text labels
     chart_with_labels = c + text
-    
-    # Display the chart in Streamlit
     st.altair_chart(chart_with_labels)
     
     st.header("Rasio Profitabilitas")
@@ -431,7 +426,15 @@ with tab2:
         y=alt.Y('Value:Q', title='Persentase (%)'),
         color='Rasio Profitabilitas:N'  # Color lines by Metric
     ).properties(width=800,height=300)
-    st.altair_chart(c)
+    #st.altair_chart(c)
+    text = alt.Chart(df_long).mark_text(align='left', dx=5, dy=-5).encode(
+        x=alt.X('index:O'),
+        y=alt.Y('Value:Q'),
+        text=alt.Text('Value:Q', format=".2f") # Ensure the correct column is used for labels
+    )
+    
+    chart_with_labels = c + text
+    st.altair_chart(chart_with_labels)
 
     st.header("Rasio Solvabilitas")
     BS_statement=BS_statement[['Debt to Asset Ratio','Debt to Equity Ratio','Long Term Debt Ratio']]
