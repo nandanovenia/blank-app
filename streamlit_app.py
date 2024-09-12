@@ -379,12 +379,12 @@ with tab2:
         return value
 
     # Transform Balance Sheet untuk perhitungan Rasio Keuangan
-    BS_df = tabel_lengkap_BS(folder_efek, emiten)
+    BS_df = tabel_lengkap_BS(folder_efek_html, emiten)
     BS_statement = BS_df.T
     BS_statement = BS_statement.applymap(clean_number)
     
     # Transform laporan Laba/Rugi untuk perhitungan Rasio Keuangan
-    LR_df = tabel_lengkap_LR(folder_efek, emiten)
+    LR_df = tabel_lengkap_LR(folder_efek_html, emiten)
     LR_statement = LR_df.T
     LR_statement = LR_statement.applymap(clean_number)
 
