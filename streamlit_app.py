@@ -369,7 +369,6 @@ with tab1:
 
 
 with tab2:
-
     def clean_number(value):
         if isinstance(value, str):  # Check if the value is a string
             value = value.replace(',', '')  # Remove commas
@@ -405,16 +404,10 @@ with tab2:
     st.header("Rasio Likuiditas")
     st.dataframe(BS_statement["Current Ratio"])
     #st.line_chart(BS_statement['Current Ratio'])
-    c = alt.Chart(BS_statement.reset_index()).mark_line().encode(x='index',y='Current Ratio').configure_axisX(
-        labelAngle=0).properties(width=800,height=300)
-    st.altair_chart(c)
+    c = alt.Chart(BS_statement.reset_index()).mark_line().encode(x=alt.X('index', title = "Tahun",axis=alt.Axis(labelAngle=0)),
+                                                                 y=alt.Y('Current Ratio', title='Current Ratio (%)')).properties(width=800,height=300)
+    #st.altair_chart(c)
 
-    df_long = BS_statement.reset_index().melt('index', var_name='Rasio Likuiditas', value_name='Value')
-    c = alt.Chart(df_long).mark_line().encode(
-        x=alt.X('index:O', title='Tahun', axis=alt.Axis(labelAngle=0)),
-        y=alt.Y('Value:Q', title='Current Ratio (%)'),
-        color='Rasio Profitabilitas:N'  # Color lines by Metric
-    ).properties(width=800,height=300)
     text = c.mark_text(align='left', dx=5, dy=-5).encode(
         text='Value:Q'
     )
