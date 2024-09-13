@@ -357,7 +357,6 @@ with tab0:
                 break
                 
             except requests.exceptions.RequestException as e:
-                st.write(f"Error fetching data for year {year[i]}: {e}")
                 continue
         return data_account_list
 
