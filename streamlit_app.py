@@ -376,7 +376,7 @@ with tab0:
     filtered_data = pd.DataFrame(filtered_data).reset_index()  # Removing 'orient' as this is a list of dictionaries
     del filtered_data['index']
     # Display the filtered data in Streamlit
-    st.dataframe(filtered_data)
+    st.dataframe(filtered_data, width = 1500)
 
 
 
