@@ -319,7 +319,7 @@ elif (efek=='Obligasi'):
     #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
     emiten=st.selectbox('Ticker',sub_folders, key='Pilih ticker')
 
-tab0,tab1, tab2 = st.tabs(["Data", "Financial Highlights"])
+tab0,tab1, tab2 = st.tabs(["Informasi Perusahaan","Data", "Financial Highlights"])
 
 tab0.title('Informasi Perusahaan')
 tab1.title("Laporan Keuangan")
