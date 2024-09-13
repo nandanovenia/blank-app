@@ -333,7 +333,6 @@ with tab0:
         for i in range(len(year)):
             file_informasi = f"{folder_efek}/{emiten}/{emiten}{year[i]}/1000000.html"
             try:
-                # Fetch the file from GitHub
                 response = requests.get(file_informasi)
                 response.raise_for_status()  
                 soup = BeautifulSoup(response.text, 'html.parser')
@@ -349,18 +348,18 @@ with tab0:
                     data_account = {
                         "Informasi": item.get_text(strip=True),
                         "Keterangan": values_items[0].get_text(strip=True)}
-                    data_account_list.append(data_account)  
-
-                # Stop the loop after processing the first found file
+                    data_account_list.append(data_account) 
                 break
+            except requests.exceptions.RequestException as e:
+                st.write(f"Error fetching data for year {year}: {e}")
+                continue
     
     # Example usage
     informasi_perusahaan(folder_efek_html, "emiten")
 
     filtered_data = [
         item for item in data_account_list if item['Informasi'] in [
-            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor','Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali',
-    
+            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor','Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
         ]
     ]
     st.dataframe(filtered_data)
