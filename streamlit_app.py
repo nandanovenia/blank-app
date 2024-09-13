@@ -461,7 +461,7 @@ with tab2:
     st.dataframe(BS_statement["Current Ratio"])
     #st.line_chart(BS_statement['Current Ratio'])
     c = alt.Chart(BS_statement.reset_index()).mark_line().encode(x=alt.X('index', title = "Tahun",axis=alt.Axis(labelAngle=0)),
-                                                                 y=alt.Y('Current Ratio:Q', title='Current Ratio (%)')).properties(width=800,height=300)
+                                                                 y=alt.Y('Current Ratio:Q', title='Current Ratio (x)')).properties(width=800,height=300)
     text = alt.Chart(BS_statement.reset_index()).mark_text(align='left', dx=5, dy=-5).encode(
         x=alt.X('index:O'),
         y=alt.Y('Current Ratio:Q'),
