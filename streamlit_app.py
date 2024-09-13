@@ -355,7 +355,7 @@ with tab0:
                 continue
     
     # Example usage
-    informasi_perusahaan(folder_efek_html, "emiten")
+    informasi_perusahaan(folder_efek_html, emiten)
 
     filtered_data = [
         item for item in data_account_list if item['Informasi'] in [
