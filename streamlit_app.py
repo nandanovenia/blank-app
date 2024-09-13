@@ -372,11 +372,15 @@ with tab0:
     # Filter data
     filtered_data = [
         item for item in data_account_list if item['Informasi'] in [
-            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor',
-            'Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
+            'Nama entitas', 'Kode entitas', 'Industri Utama entitas', 'Sektor',
+            'Subsektor', 'Jenis entitas', 'Jenis efek yang dicatatkan', 'Informasi pemegang saham pengendali'
         ]
     ]
-    filtered_data = pd.DataFrame.from_dict(filtered_data, orient='index').reset_index()    
+    
+    # Convert filtered data to DataFrame
+    filtered_data = pd.DataFrame(filtered_data).reset_index()  # Removing 'orient' as this is a list of dictionaries
+    
+    # Display the filtered data in Streamlit
     st.dataframe(filtered_data)
 
 
