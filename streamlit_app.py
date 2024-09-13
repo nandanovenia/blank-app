@@ -319,10 +319,52 @@ elif (efek=='Obligasi'):
     #sub_folders = [name for name in os.listdir(folder_efek) if os.path.isdir(os.path.join(folder_efek, name))]
     emiten=st.selectbox('Ticker',sub_folders, key='Pilih ticker')
 
-tab1, tab2 = st.tabs(["Data", "Financial Highlights"])
+tab0,tab1, tab2 = st.tabs(["Data", "Financial Highlights"])
 
+tab0.title('Informasi Perusahaan')
 tab1.title("Laporan Keuangan")
 tab2.title("Rasio Keuangan")
+
+with tab0:
+    def informasi_perusahaan(folder_efek, emiten):
+        year = ['2020', '2021', '2022', '2023']
+        data_account_list=[]
+        # Iterate through the years to find the first available file
+        for i in range(len(year)):
+            file_informasi = f"{folder_efek}/{emiten}/{emiten}{year[i]}/1000000.html"
+            try:
+                # Fetch the file from GitHub
+                response = requests.get(file_informasi)
+                response.raise_for_status()  
+                soup = BeautifulSoup(response.text, 'html.parser')
+        
+                # Select the correct class based on the year
+                if year in ['2020', '2021']:
+                    accounts = soup.find_all('td', class_="rowHeaderID01")
+                elif year in ['2022', '2023']:
+                    accounts = soup.find_all('td', class_="rowHeaderLeft")
+                    
+                for item in accounts:      
+                    values_items = item.find_next_siblings(class_="valueCell")
+                    data_account = {
+                        "Informasi": item.get_text(strip=True),
+                        "Keterangan": values_items[0].get_text(strip=True)}
+                    data_account_list.append(data_account)  
+
+                # Stop the loop after processing the first found file
+                break
+    
+    # Example usage
+    informasi_perusahaan(folder_efek_html, "emiten")
+
+    filtered_data = [
+        item for item in data_account_list if item['Informasi'] in [
+            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor','Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali',
+    
+        ]
+    ]
+    st.dataframe(filtered_data)
+
 
 with tab1:
     jenis_lapkeu=st.selectbox('Jenis Laporan Keuangan',['Balance Sheet','Laporan Laba/Rugi','Laporan Arus Kas'], key='Pilih jenis Laporan Keuangan')
