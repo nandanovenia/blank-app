@@ -359,15 +359,10 @@ with tab0:
             except requests.exceptions.RequestException as e:
                 st.write(f"Error fetching data for year {year[i]}: {e}")
                 continue
-    
-        # Display the data if available
-        if data_account_list:
-            st.write(data_account_list)
-        else:
-            st.write("No data found for any year.")
-    
-    # Example usage
-    informasi_perusahaan(folder_efek_html, emiten)
+        return data_account_list
+
+# Example usage
+    data_account_list = informasi_perusahaan(folder_efek_html, emiten)
     
     # Filter data
     filtered_data = [
