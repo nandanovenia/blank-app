@@ -353,7 +353,11 @@ with tab0:
             except requests.exceptions.RequestException as e:
                 st.write(f"Error fetching data for year {year}: {e}")
                 continue
-    
+        if data_account_list:
+            st.write(data_account_list)
+        else:
+            st.write("No data found for any year.")
+        
     # Example usage
     informasi_perusahaan(folder_efek_html, emiten)
 
@@ -362,7 +366,7 @@ with tab0:
             'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor','Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
         ]
     ]
-    st.dataframe(filtered_data)
+    #st.dataframe(filtered_data)
 
 
 with tab1:
