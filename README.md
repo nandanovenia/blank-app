@@ -1,11 +1,16 @@
-# 🎈 Blank app template
+# 🎈 FINANCIAL STATEMENTS AND FINANCIAL HIGHLIGHTS
 
-A simple Streamlit app template for you to modify!
+Data resources from [(https://www.idx.co.id/id/perusahaan-tercatat/laporan-keuangan-dan-tahunan/)]
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+Financial Ratio used on this app:
+![image](https://github.com/user-attachments/assets/bb19cf2b-50b3-4c56-8993-9eb945048dcc)
+
+
+
+### The website apps is here! 
+https://financial-statements-idx.streamlit.app/
 
 ### How to run it on your own machine
-
 1. Install the requirements
 
    ```
@@ -17,3 +22,4 @@ A simple Streamlit app template for you to modify!
    ```
    $ streamlit run streamlit_app.py
    ```
+
