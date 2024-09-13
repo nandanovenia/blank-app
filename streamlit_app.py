@@ -376,7 +376,8 @@ with tab0:
             'Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
         ]
     ]
-    # st.dataframe(filtered_data)
+    filtered_data = pd.DataFrame.from_dict(filtered_data, orient='index').reset_index()    
+    st.dataframe(filtered_data)
 
 
 
