@@ -328,7 +328,8 @@ tab2.title("Rasio Keuangan")
 with tab0:
     def informasi_perusahaan(folder_efek, emiten):
         year = ['2020', '2021', '2022', '2023']
-        data_account_list=[]
+        data_account_list = []
+        
         # Iterate through the years to find the first available file
         for i in range(len(year)):
             file_informasi = f"{folder_efek}/{emiten}/{emiten}{year[i]}/1000000.html"
@@ -338,35 +339,45 @@ with tab0:
                 soup = BeautifulSoup(response.text, 'html.parser')
         
                 # Select the correct class based on the year
-                if year in ['2020', '2021']:
+                if year[i] in ['2020', '2021']:
                     accounts = soup.find_all('td', class_="rowHeaderID01")
-                elif year in ['2022', '2023']:
+                elif year[i] in ['2022', '2023']:
                     accounts = soup.find_all('td', class_="rowHeaderLeft")
                     
+                # Process the accounts
                 for item in accounts:      
                     values_items = item.find_next_siblings(class_="valueCell")
                     data_account = {
                         "Informasi": item.get_text(strip=True),
-                        "Keterangan": values_items[0].get_text(strip=True)}
-                    data_account_list.append(data_account) 
+                        "Keterangan": values_items[0].get_text(strip=True)
+                    }
+                    data_account_list.append(data_account)
+                
+                # Exit loop once data is fetched successfully
                 break
+                
             except requests.exceptions.RequestException as e:
-                st.write(f"Error fetching data for year {year}: {e}")
+                st.write(f"Error fetching data for year {year[i]}: {e}")
                 continue
+    
+        # Display the data if available
         if data_account_list:
             st.write(data_account_list)
         else:
             st.write("No data found for any year.")
-        
+    
     # Example usage
     informasi_perusahaan(folder_efek_html, emiten)
-
+    
+    # Filter data
     filtered_data = [
         item for item in data_account_list if item['Informasi'] in [
-            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor','Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
+            'Nama entitas', 'Kode entitas', 'Industri Utama entitas','Sektor',
+            'Subsektor','Jenis entitas','Jenis efek yang dicatatkan','Informasi pemegang saham pengendali'
         ]
     ]
-    #st.dataframe(filtered_data)
+    # st.dataframe(filtered_data)
+
 
 
 with tab1:
