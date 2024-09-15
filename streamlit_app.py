@@ -8,11 +8,6 @@ import altair as alt
 import requests
 from subfolder_list import sub_folder_saham, sub_folder_obligasi
 
-#folder="https://raw.githubusercontent.com/nandanovenia/financial-statement-IDX/master/IDX_data%20-%20extracted"
-#folder = "https://github.com/nandanovenia/financial-statement-IDX/tree/5f258b81cdbecc84a66ab6ccb5b59e6d5ab4b047/IDX_data%20-%20extracted"
-#token = "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"
-#headers = {"Authorization": f"token {token}"}
-
 def change_date_format(data):
     for entry in data:
         if '2023-12-31' in entry:
